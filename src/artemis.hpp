@@ -14,14 +14,13 @@ typedef struct point {
     point(int64_t x_, int64_t y_): x(x_), y(y_){}
 } point;
 
-
 class artemis : public EasyBMP::Image {
     public:
 
     artemis(int width_, int64_t height_, string fname, array<uint8_t, 3> bg):
     EasyBMP::Image(width_, height_, fname, EasyBMP::RGBColor({bg[0], bg[1], bg[2]}))
     {}
-    
+
     ~artemis(){}
 
     void render_function(std::function<int(int)> lambda, array<int, 3> colour, point origin, point max, float scale = 1){
@@ -29,13 +28,10 @@ class artemis : public EasyBMP::Image {
         int64_t previous = (origin.y >= 0 ? (origin.y < height ? origin.y : height) : 0);
         EasyBMP::RGBColor bmp_colour(colour[0], colour[1], colour[2]);
         std::function<int64_t(int64_t)> scaled;
-        
-        if(scale >= 1) {
-            scaled = [&](int64_t val) -> int64_t {return lambda(val*scale);};
-        } else {
-            scaled = [&](int64_t val) -> int64_t {return (int64_t)(lambda(val)*scale);};
-        }
 
+        if(scale >= 1) scaled = [&](int64_t val) -> int64_t {return lambda(val*scale);};
+        else scaled = [&](int64_t val) -> int64_t {return (int64_t)(lambda(val)*scale);};
+    
         for(int64_t x = 0; x < max.x; x++){
             int64_t result = scaled(x)+origin.y;
             int64_t x_offset = x+origin.x;
@@ -54,7 +50,6 @@ class artemis : public EasyBMP::Image {
             previous = result;
         }
     }
-
 };
 
 
