@@ -16,25 +16,6 @@ typedef struct point {
     point(int x_, int y_): x(x_), y(y_){}
 } point;
 
-typedef struct pixel {
-    point pos;
-    array<int, 3> rgb = {0,0,0};
-    pixel(int x, int y): pos(x, y){}
-} pixel;
-
-typedef struct function {
-    std::function<int(int)> rule;
-    point rule_result;
-    int scale;
-
-    function(std::function<int(int)> rule_, int scale_ = 1):rule(rule_), rule_result(0,0), scale(scale_){}
-
-    void iterate(){
-        rule_result.x++;
-        rule_result.y = rule(rule_result.x)*scale;
-    }
-} function;
-
 namespace artemis{
 
     class image {
