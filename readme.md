@@ -35,5 +35,5 @@ int main(){
 }
 ```
 
-#### Output:
+## Output:
 <img src="/img/output.bmp">
