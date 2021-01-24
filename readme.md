@@ -28,7 +28,7 @@ int main(){
     //Render the artemis pixel matrix as an EasyBMP bitmap image
     artemis_img.render(img);
     
-    ///Save EasyBMP image
+    //Save EasyBMP image
     img.Write();
 
     return 0;
