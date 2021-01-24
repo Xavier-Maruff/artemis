@@ -1,6 +1,6 @@
 # Artemis
 
-Artemis is a very minimal function plotting C++ library, utilizing the <li href="https://github.com/izanbf1803/EasyBMP">EasyBMP library</li>, from <li href="https://github.com/izanbf1803">izanbf1803</li>. The library takes a lambda expression, and renders it as a bitmap image, applying scaling.
+Artemis is a very minimal function plotting C++ library, utilizing the <a href="https://github.com/izanbf1803/EasyBMP">EasyBMP library</a>, from <a href="https://github.com/izanbf1803">izanbf1803</a>. The library takes a lambda expression, and renders it as a bitmap image, applying scaling.
 
 ## Example:
 ```c++
