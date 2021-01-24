@@ -1,11 +1,8 @@
 #ifndef ARTEMIS_IMAGE
 #define ARTEMIS_IMAGE
 
-#include <iostream>
 #include <vector>
-#include <cmath>
 #include <array>
-#include <algorithm>
 #include <functional>
 #include "EasyBMP.hpp"
 
