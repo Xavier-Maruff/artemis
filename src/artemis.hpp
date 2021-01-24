@@ -49,7 +49,6 @@ namespace artemis{
                     for(int y = previous; y < height; y++){
                         bmp_img.SetPixel(x, height-y-1, bmp_colour);
                     }
-                    break;
                 }
                 else{
                     for(int y = previous; y <= result; y++){
