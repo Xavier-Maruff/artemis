@@ -18,21 +18,21 @@ namespace artemis{
 
     class image {
         public:
-        int img_width, img_height;
-        EasyBMP::Image img;
+        int width, height;
+        EasyBMP::Image bmp_img;
 
         image(int width_, int height_, string fname, array<uint8_t, 3> bg):
-        img_width(width_),
-        img_height(height_),
-        img(img_width, img_height, fname, EasyBMP::RGBColor({bg[0], bg[1], bg[2]}))
+        width(width_),
+        height(height_),
+        bmp_img(width, height, fname, EasyBMP::RGBColor({bg[0], bg[1], bg[2]}))
         {}
         
 
         void render_function(std::function<int(int)> lambda, array<int, 3> colour, point origin, point max, float scale = 1){
             int previous = origin.y;
 
-            max.x = (max.x <= img_width ? max.x : img_width);
-            max.y = (max.y <= img_height ? max.y : img_height);
+            max.x = (max.x <= width ? max.x : width);
+            max.y = (max.y <= height ? max.y : height);
 
             EasyBMP::RGBColor bmp_colour(colour[0], colour[1], colour[2]);
 
@@ -46,14 +46,14 @@ namespace artemis{
             for(int x = 0; x < max.x; x++){
                 int result = scaled(x);
                 if(result >= max.y) {
-                    for(int y = previous; y < img_height; y++){
-                        img.SetPixel(x, img_height-y-1, bmp_colour);
+                    for(int y = previous; y < height; y++){
+                        bmp_img.SetPixel(x, height-y-1, bmp_colour);
                     }
                     break;
                 }
                 else{
                     for(int y = previous; y <= result; y++){
-                        img.SetPixel(x, img_height-y-1, bmp_colour);
+                        bmp_img.SetPixel(x, height-y-1, bmp_colour);
                     }
                 }
                 previous = result;

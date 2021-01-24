@@ -7,17 +7,17 @@
 
 int main(){
     //Instantiate an artemis image, which is a wrapper over an EasyBMP image
-    artemis::image artemis_img(WIDTH, HEIGHT, "img/output.bmp", {0,0,0});
+    artemis::image img(WIDTH, HEIGHT, "img/output.bmp", {0,0,0});
     
     //Define f as our lambda expression (must map from int to int as artemis works in discrete pixels)
     std::function<int(int)> f = [](int arg) -> int {return (int)(sqrt(arg));};
 
     //Render f onto image
     //args: function, colour, origin, maximum, zoom factor
-    artemis_img.render_function(f, {255, 0, 0}, {0,0}, {WIDTH, HEIGHT}, 500);
+    img.render_function(f, {255, 0, 0}, {0,0}, {WIDTH, HEIGHT}, 500);
     
     //Save image
-    artemis_img.write();
+    img.write();
 
     return 0;
 }
