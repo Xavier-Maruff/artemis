@@ -61,7 +61,7 @@ namespace artemis{
         }
 
         void write() {
-            img.Write();
+            bmp_img.Write();
         }
     
     };
