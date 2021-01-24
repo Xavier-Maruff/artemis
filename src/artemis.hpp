@@ -1,3 +1,6 @@
+#ifndef ARTEMIS_IMAGE
+#define ARTEMIS_IMAGE
+
 #include <iostream>
 #include <vector>
 #include <cmath>
@@ -49,9 +52,7 @@ namespace artemis{
             }
         }
 
-        void apply_function(function& lambda, array<int, 3> colour, point origin, point max, bool impactful = false, float scale = 1){
-            point rule_initial = lambda.rule_result;
-            lambda.rule_result = origin;
+        void apply_function(std::function<int(int)> lambda, array<int, 3> colour, point origin, point max, float scale = 1){
             int previous = origin.y;
 
             max.x = (max.x <= width ? max.x : width);
@@ -65,7 +66,7 @@ namespace artemis{
             }
 
             for(int x = 0; x < max.x; x++){
-                int result = scaled(x, lambda.rule, scale);
+                int result = scaled(x, lambda, scale);
                 if(result >= max.y) {
                     for(int y = previous; y < height; y++){
                     pixels[x][height-y] = colour;
@@ -79,7 +80,6 @@ namespace artemis{
                 }
                 previous = result;
             }
-            if(!impactful) lambda.rule_result = rule_initial;
         }
 
         void render(EasyBMP::Image& img){
@@ -90,7 +90,6 @@ namespace artemis{
                 }
             }
             return;
-            //img.SetPixel(x, y, EasyBMP::RGBColor(final_color, final_color, 0));
         }
 
 
@@ -98,14 +97,4 @@ namespace artemis{
 }
 
 
-/*vector<vector<pixel>> create_pos(){
-    vector<vector<pixel>> ret;
-    for(int x = 0; x < WIDTH; x++){
-        vector<pixel> column(0);
-        for(int y = 0; y < HEIGHT; y++){
-            column.push_back(pixel(x, y));
-        }
-        ret.push_back(column);
-    }
-    return ret;
-}*/
+#endif
