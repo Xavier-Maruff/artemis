@@ -11,8 +11,6 @@ Artemis is a very minimal function plotting C++ library, utilizing the <a href="
 #define WIDTH 800
 #define HEIGHT 800
 
-EasyBMP::RGBColor bg(0,0,0);
-
 int main(){
     //Initialise EasyBMP image
     EasyBMP::Image img(WIDTH, HEIGHT, "img/output.bmp", EasyBMP::RGBColor(0,0,0));
