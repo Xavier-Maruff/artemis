@@ -10,61 +10,53 @@
 using std::vector, std::array, std::string;
 
 typedef struct point {
-    int x, y;
-    point(int x_, int y_): x(x_), y(y_){}
+    int64_t x, y;
+    point(int64_t x_, int64_t y_): x(x_), y(y_){}
 } point;
 
-namespace artemis{
 
-    class image {
-        public:
-        int width, height;
-        EasyBMP::Image bmp_img;
+class artemis : public EasyBMP::Image {
+    public:
 
-        image(int width_, int height_, string fname, array<uint8_t, 3> bg):
-        width(width_),
-        height(height_),
-        bmp_img(width, height, fname, EasyBMP::RGBColor({bg[0], bg[1], bg[2]}))
-        {}
+    artemis(int width_, int64_t height_, string fname, array<uint8_t, 3> bg):
+    EasyBMP::Image(width_, height_, fname, EasyBMP::RGBColor({bg[0], bg[1], bg[2]}))
+    {}
+    
+    ~artemis(){}
+
+    void render_function(std::function<int(int)> lambda, array<int, 3> colour, point origin, point max, float scale = 1){
+
+        int64_t previous = (origin.y >= 0 ? (origin.y < height ? origin.y : height) : 0);
+        EasyBMP::RGBColor bmp_colour(colour[0], colour[1], colour[2]);
+        std::function<int64_t(int64_t)> scaled;
         
+        if(scale >= 1) {
+            scaled = [&](int64_t val) -> int64_t {return lambda(val*scale);};
+        } else {
+            scaled = [&](int64_t val) -> int64_t {return (int64_t)(lambda(val)*scale);};
+        }
 
-        void render_function(std::function<int(int)> lambda, array<int, 3> colour, point origin, point max, float scale = 1){
-            int previous = origin.y;
-
-            max.x = (max.x <= width ? max.x : width);
-            max.y = (max.y <= height ? max.y : height);
-
-            EasyBMP::RGBColor bmp_colour(colour[0], colour[1], colour[2]);
-
-            std::function<int(int)> scaled;
-            if(scale >= 1) {
-                scaled = [&](int val) -> int {return lambda(val*scale);};
-            } else {
-                scaled = [&](int val) -> int {return (int)(lambda(val)*scale);};
-            }
-
-            for(int x = 0; x < max.x; x++){
-                int result = scaled(x);
-                if(result >= max.y) {
-                    for(int y = previous; y < height; y++){
-                        bmp_img.SetPixel(x, height-y-1, bmp_colour);
+        for(int64_t x = 0; x < max.x; x++){
+            int64_t result = scaled(x)+origin.y;
+            int64_t x_offset = x+origin.x;
+            if(result >= 0 && x_offset < width && x_offset >= 0){
+                if(result >= max.y || result >= height) {
+                    for(int64_t y = previous; y < height; y++){
+                        SetPixel(x_offset, height-y-1, bmp_colour);
                     }
                 }
                 else{
-                    for(int y = previous; y <= result; y++){
-                        bmp_img.SetPixel(x, height-y-1, bmp_colour);
+                    for(int64_t y = previous; y <= result; y++){
+                        SetPixel(x_offset, height-y-1, bmp_colour);
                     }
                 }
-                previous = result;
             }
+            previous = result;
         }
+    }
 
-        void write() {
-            bmp_img.Write();
-        }
-    
-    };
-}
+};
+
 
 
 #endif

@@ -64,7 +64,8 @@ namespace EasyBMP
         inline int64_t w() const { return width; }
         inline int64_t h() const { return height; }
 
-    private:
+    //Only change to EasyBMP for Artemis - private members changed to protected
+    protected:
         void Init(int64_t _width, int64_t _height);
         void Setup();
         void DrawLineLow(int64_t x0, int64_t y0, int64_t x1, int64_t y1, const RGBColor& color);
