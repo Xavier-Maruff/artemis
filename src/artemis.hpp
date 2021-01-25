@@ -1,11 +1,9 @@
 #ifndef ARTEMIS_IMAGE
 #define ARTEMIS_IMAGE
-
 /*
 Original repository: https://github.com/Xavier-Maruff/artemis
-License: MIT
+License: GNU 3.0
 */
-
 #include <vector>
 #include <array>
 #include <functional>
