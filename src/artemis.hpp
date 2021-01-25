@@ -38,21 +38,14 @@ class artemis : public EasyBMP::Image {
             int64_t x_offset = x+origin.x;
             if(result >= 0 && x_offset < width && x_offset >= 0){
                 if(result >= max.y || result >= height) {
-                    for(int64_t y = previous; y < height; y++){
-                        SetPixel(x_offset, height-y-1, bmp_colour);
-                    }
+                    for(int64_t y = previous; y < height; y++) SetPixel(x_offset, height-y-1, bmp_colour);
                 }
                 else{
-                    for(int64_t y = previous; y <= result; y++){
-                        SetPixel(x_offset, height-y-1, bmp_colour);
-                    }
+                    for(int64_t y = previous; y <= result; y++) SetPixel(x_offset, height-y-1, bmp_colour);
                 }
             }
             previous = result;
         }
     }
 };
-
-
-
 #endif
