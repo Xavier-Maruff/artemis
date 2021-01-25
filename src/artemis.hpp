@@ -16,16 +16,13 @@ typedef struct point {
 
 class artemis : public EasyBMP::Image {
     public:
-
     artemis(const int64_t width_, const int64_t height_, const string& fname, const array<uint8_t, 3> bg):EasyBMP::Image(width_, height_, fname, EasyBMP::RGBColor({bg[0], bg[1], bg[2]})){}
     artemis(const int64_t width_, const int64_t height_, const string& fname):EasyBMP::Image(width_, height_, fname){}
     artemis(const int64_t width_, const int64_t height_, const array<uint8_t, 3> bg):EasyBMP::Image(width_, height_,  EasyBMP::RGBColor({bg[0], bg[1], bg[2]})){}
     artemis(const int64_t width_, const int64_t height_):EasyBMP::Image(width_, height_){}
-
     ~artemis(){}
 
     void render_function(const std::function<int(int)> lambda, const array<int, 3> colour, const point origin, const point max, const float scale = 1){
-
         int64_t previous = (origin.y >= 0 ? (origin.y < height ? origin.y : height) : 0);
         const EasyBMP::RGBColor bmp_colour(colour[0], colour[1], colour[2]);
         std::function<int64_t(int64_t)> scaled;
